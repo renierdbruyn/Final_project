@@ -1,6 +1,19 @@
 <!doctype html>
 
-			
+		<div class="container">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!--Sidebar content-->
+                        <?php $this->load->view('login/admin/consultant_sidebar'); ?>
+                    </div>
+
+                    <div class="span10">
+                        <!--Body content-->
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">	
                 <div class="hide_toggle">
 	                <ul class="bullet">
 	                <?php
@@ -13,21 +26,21 @@
 	                        echo '<li><span class="highlight_orange">User privileges are NOT considered.</span></li>';
 	                    }
 	                    
-	                    if (in_array('group', $privilege_sources))
+	                    if (in_array('Role', $privilege_sources))
 	                    {
-	                        echo '<li><span class="highlight_green">Group privileges are considered.</span></li>';
+	                        echo '<li><span class="highlight_green">Roles privileges are considered.</span></li>';
 	                    }
 	                    else
 	                    {
-	                        echo '<li><span class="highlight_orange">User Group privileges are NOT considered.</span></li>';
+	                        echo '<li><span class="highlight_orange">User Roles privileges are NOT considered.</span></li>';
 	                    }
 	                ?>
 	                </ul>
 				</div>		
 			
-				<h2>Update User Group Privileges of Group '<?php echo $group['ugrp_name']; ?>'</h2>
-				<a href="<?php echo base_url();?>index.php/auth_admin/manage_user_groups">Manage User Groups</a> | 
-				<a href="<?php echo base_url();?>index.php/auth_admin/update_user_group/<?php echo $group['ugrp_id']; ?>">Update User Group</a>
+				<h2>Update User Role Privileges of Role '<?php echo $group['ugrp_name']; ?>'</h2>
+				<a href="<?php echo base_url();?>index.php/auth_admin/manage_user_groups">Update User Roles</a> | 
+				<a href="<?php echo base_url();?>index.php/auth_admin/update_user_group/<?php echo $group['ugrp_id']; ?>">Update User Role</a>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -36,7 +49,7 @@
 			<?php } ?>
 			
 				<?php echo form_open(current_url());	?>  	
-					<table class="table">
+					<table class="table table-bordered table-condensed table-striped">
 						<thead>
 							<tr>
 								<th class="tooltip_trigger"
@@ -77,12 +90,19 @@
 						<tfoot>
 							<tr>
 								<td colspan="3">
-									<input type="submit" name="update_group_privilege" value="Update Group Privileges" class="link_button large"/>
+									<input type="submit" name="update_group_privilege" value="Update Group Privileges" class="btn btn-primary"/>
 								</td>
 							</tr>
 						</tfoot>
 					</table>					
 				<?php echo form_close();?>
-			
+			</div>
+    </div>
+</div>
+
+</div> <!--end container -->
+                </div>
+            </div>
+        </div>
 </body>
 </html>

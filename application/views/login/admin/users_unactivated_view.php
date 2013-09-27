@@ -1,6 +1,19 @@
 <!doctype html>
 
+<div class="container">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!--Sidebar content-->
+                        <?php $this->load->view('login/admin/consultant_sidebar'); ?>
+                    </div>
 
+                    <div class="span10">
+                        <!--Body content-->
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">
 				<h2>User Accounts Not Activated in 31 Days</h2>
 
 			<?php if (! empty($message)) { ?>
@@ -10,7 +23,7 @@
 			<?php } ?>
 				
 				<?php echo form_open(current_url()); ?>
-					                <table class="table table-striped">
+					                <table class="table table-bordered table-condensed table-striped">
 
 						<thead>
 							<tr>
@@ -18,7 +31,7 @@
 								<th>First Name</th>
 								<th>Last Name</th>
 								<th class="spacer_125 align_ctr tooltip_trigger"
-									title="Indicates the user group the user belongs to.">
+									title="Indicates the user role the user belongs to.">
 									User Group
 								</th>
 								<th class="spacer_125 align_ctr tooltip_trigger" 
@@ -54,7 +67,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="5">
-									<input type="submit" name="delete_unactivated" value="Delete Listed Users" class="link_button large"/>
+									<input type="submit" name="delete_unactivated" value="Delete Listed Users" class="btn btn-primary"/>
 								</td>
 							</tr>
 						</tfoot>
@@ -71,6 +84,13 @@
 				<?php echo form_close(); ?>
 		
 <br>
+</div>
+    </div>
+</div>
 
+</div> <!--end container -->
+                </div>
+            </div>
+        </div>
 </body>
 </html>

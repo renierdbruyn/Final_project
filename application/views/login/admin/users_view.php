@@ -1,6 +1,19 @@
 <!doctype html>
+<div class="container">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!--Sidebar content-->
+                        <?php $this->load->view('login/admin/consultant_sidebar'); ?>
+                    </div>
 
-				<h2>Admin: <?php echo $page_title;?></h2>
+                    <div class="span10">
+                        <!--Body content-->
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">
+				<h2>Consultant: <?php echo $page_title;?></h2>
 			<?php if (isset($status) && $status == 'failed_login_users') { ?>
 			<?php } else { ?>
 				<?php if (isset($status) && $status == 'active_users') { ?>
@@ -17,23 +30,23 @@
 			<?php } ?>
 				
 				<?php echo form_open(current_url()); ?>
-				<table class="table table-striped">
-                                            <a href="<?php echo base_url();?>index.php/auth_admin/manage_user_groups">Manage User Groups</a>
+				<table class="table table-bordered table-condensed table-striped">
+                                            <a href="<?php echo base_url();?>index.php/auth_admin/manage_user_groups">update User Roles</a>
 						<thead>
 							<tr>
-								<th class="spacer_200"></th>
+								<th class="spacer"></th>
 								<th>First Name</th>
 								<th>Last Name</th>
-								<th class="spacer_125 align_ctr tooltip_trigger"
-									title="Indicates the user group the user belongs to.">
-									User Group
+								<th class="spacer align_ctr tooltip_trigger"
+									title="Indicates the user role the user belongs to.">
+									User Role
 								</th>
 							<?php if (isset($status) && $status == 'failed_login_users') { ?>
-								<th class="spacer_125 align_ctr tooltip_trigger"
+								<th class="spacer align_ctr tooltip_trigger"
 									title="The number of consecutive failed login attempts made since the user last successfully logged in.">
 									Failed Attempts</th>
 							<?php } ?>
-								<th class="spacer_125 align_ctr tooltip_trigger" 
+								<th class="spacer align_ctr tooltip_trigger" 
 									title="Indicates whether the users account is currently set as 'active'.">
 									Status
 								</th>
@@ -84,6 +97,14 @@
 <br>
 <br>
 <br>
+</div>
+    </div>
+</div>
+
+</div> <!--end container -->
+                </div>
+            </div>
+        </div>
 
 </div>
 </body>

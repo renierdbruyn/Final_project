@@ -1,60 +1,83 @@
-<div class="container">
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="span2">
-                        <!--Sidebar content-->
-                        <?php $this->load->view('profile/applicant_sidebar'); ?>
-                    </div>
-                
-                    <div class="span8">
-                        <!--Body content-->
-
-						
-					<div class="container">
-    <div class="row-fluid">
-        <div class="span5">
-                    	
-				
-		<h3>Upload</h3>
-
+<center>
+<html>
+<head>
+<title>Upload Form</title>
+</head>
+<body>
 
 <?php echo $error;?>
 
-<?php echo form_open_multipart('upload/do_upload');?>
+<?php echo form_open_multipart('upload/do_upload','class="btn btn-primary"');?>
 
 <input type="file" name="userfile" size="20" />
 
+<br /><br />
 
-<h3>display</h3>
-<table border="1">  
+<input type="submit" value="upload"  />
 
-     <th>ID</th>  
+</form>
 
-     <th>FileName</th>      
+<title>Upload Form</title>
+<style type="text/css">
+		#find, #upload {
+			border: 1px solid #ccc; margin: 100px auto; width: 700px; padding: 100px;
+		}
+		#blank_find {
+			font-family: Arial; font-size: 70px; font-weight: bold;
+			text-align: center;
+		}
+/*		.thumb {
+			float: left; width: 50px; height: 50px; padding: 50px; margin: 50px; background-color: #ddd;
+		}*/
+		.thumb:hover {
+			outline: 1px solid #999;
+		}
+		img {
+			border: 0;
+		}
+		#gallery:after {
+			content: "."; visibility: hidden; display: block; clear: both; height: 0; font-size: 0;
+		}
+	</style>
 
-        
+<h2>Uploaded documents</h2>
 
-   
 
 
 <?php foreach ($rows as $r){
-    echo "<tr>";  
-    echo "<td>".$r->id."</td>";  
 
-    echo "<td>".$r->file_name."</td>";  
-      
+//    echo "</tr>";   ?>
+   </center>
 
-   echo "</tr>";     
+<table class="thumb" width="50%" style=" alignment-adjust: central;"><tr><td style=" text-align: left;">
+    <a href="<?php echo base_url(); ?>uploads/<?php echo $r->file_name ; ?>"/>
+    <img src="<?php echo base_url(); ?>uploads/<?php echo $r->file_name; ?>"class="img-rounded" height="50px" width="50px"/>
+    <?php echo $r->file_name; ?>
+    
+     
+				</a>
+        </td>
+        <td style=" text-align: right;"><?php echo anchor('upload/delete/'.$r->id, 'Delete','class="btn btn-primary btn-small "'); ?></td>
+        </tr>
+    </table>
+        
+
+
+
+<!--   <img src="<?php echo base_url(); ?>uploads/<?php echo $r->file_name; ?>" class="img-rounded" height="100px" width="450px"/>-->
+    <?php
+   
+
+    
 
 }
-?>
-     </tr>  
-<input type="submit" value="upload" />
 
-</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+?>
+
+</body>
+</html>
+
+
+
+

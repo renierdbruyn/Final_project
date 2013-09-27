@@ -3,12 +3,12 @@
         <div class="row-fluid">
             <div class="span2">
                 <!--Sidebar content-->
-                <?php $this->load->view('profile/applicant_sidebar'); ?>
+                <?php $this->load->view('profile/applicant_sidebar');  ?>
             </div>
 
             <div class="span10">
                 <!--Body content-->
-				<h1>Your Applications</h1>
+				<h4>Your Applications</h4>
 				<table class="table table-bordered table-condensed table-striped">
                
                 <tr>
@@ -16,17 +16,22 @@
                     <th>Consulatant</th>
                     <th>Status</th>                  
                 </tr>
-                
-                 <?php foreach($applications as $application): ?>
-                <tr><?php $sql = "SELECT job_title FROM job_advert 
-                                  WHERE advert_id = {$this->db->escape($application['advert_id'])}"; ?>
-                   <?php $job = $this->db->query($sql)->result_array(); foreach($job as $job_title): ?>
-                    <td><?php echo $job_title['job_title']//anchor('advert/view_advert/' . $job_advert['advert_id'], $job_advert['job_title']);  ?></td>
-                    <td><?php endforeach; echo $application['consultant'] ?></td>
-                    <td><?php echo $application['status']; ?></td>
+                 <?php foreach($applications as $application): 
+                     $adverts = $this->Advert_model->get_advert($application['advert_id']);
+                       foreach($adverts as $advert): ?>
+                <tr>
+                    <?php if($application['id_number']==$this->session->userdata('id_number'))
+                        {
+                           echo '<td>'.  anchor('advert/review_advert/' . $application['advert_id'], $advert['job_title']).'</td>';
+                           echo '<td>'.  $application['consultant'] .'</td>';
+                           echo '<td>'.  $application['status'].'</td>';
+                        }
+                        //print_r($advert)
+                    ?>
                 </tr>
                 
-                <?php endforeach; ?>
+                <?php endforeach;
+                endforeach;?>
             </table>
 				<?php //print_r($applications) ?>
 			</div> <!--end container -->

@@ -44,8 +44,8 @@ foreach ($results as $val)
         $home_status = 'HOME ALLOWANCE: No';
     }
    
-    echo "<div class='container'>
-        <div class='accordion well span11' id='accordion2'>
+    echo "
+        
             <div class='accordion-group'>
                 <div class='accordion-heading'>
                     <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion2' href='#collapse".$count."'>" .
@@ -92,8 +92,8 @@ foreach ($results as $val)
                     ."</div>
                 </div>
             </div>
-        </div>
-    </div>";
+        
+    </center>";
     
 }
 }else{

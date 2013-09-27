@@ -1,3 +1,17 @@
+<div class="container">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!--Sidebar content-->
+                        <?php $this->load->view('profile/applicant_sidebar'); ?>
+                    </div>
+
+                    <div class="span10">
+                        <!--Body content-->
+
+						
+
+
 <?php
 $this->load->helper('form');
 
@@ -99,3 +113,7 @@ echo form_fieldset_close();
 
 echo form_close();
 ?>
+                    </div>
+                </div>
+            </div>
+</div>

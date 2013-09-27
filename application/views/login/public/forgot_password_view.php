@@ -1,5 +1,5 @@
 <!doctype html>
-
+<center>
 
 				<h3>Forgotten Password</h3>
 
@@ -36,7 +36,7 @@
 <br>
 <br>
 <br>
-
+</center>
 
 </body>
 </html>

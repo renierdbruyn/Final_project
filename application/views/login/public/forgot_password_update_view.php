@@ -1,5 +1,5 @@
 <!doctype html>
-
+<center>
 				<h3>Change Forgotten Password</h3>
 
 			<?php if (! empty($message)) { ?>
@@ -36,6 +36,6 @@
  <br>
        
 
-
+</center>
 </body>
 </html>

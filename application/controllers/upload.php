@@ -38,6 +38,7 @@ class Upload extends CI_Controller {
     }
 
     function index() {
+        $data['rows']=$this->files_model->getById();
         $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['rows'] = $this->files_model->getAll();
         $data['error'] = '';
@@ -46,44 +47,87 @@ class Upload extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
-    function do_upload() {
-        $config['upload_path'] = './uploads/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '10000000';
-        $config['max_width'] = '1024';
-        $config['max_height'] = '768';
+	function delete($id)
+	{
+                        $data['content'] ='' ;
 
-        $this->load->library('upload', $config);
+            $data['view_data'] ='' ;
+		$this->files_model->delete($id);
+		redirect('upload/index');
+	}
 
-        if (!$this->upload->do_upload()) {
-            $error = array('error' => $this->upload->display_errors());
+	function do_upload()
+	{
+                        $data['content'] ='' ;
 
-            $this->load->view('upload/upload_form', $error);
-        } else {
-            $data = $this->upload->data();
-            $this->files_model->insert_file($data['file_name'], $data['file_type'], $data['file_path'], $data['full_path']);
+        $data['view_data'] ='' ;
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png|pdf|.doc|txt|docx';
+		$config['max_size']	= '10000000';
+		//$config['max_width']  = '1024';
+		//$config['max_height']  = '200';
 
-            $data2 = array('upload_data' => $this->upload->data());
-            $this->load->view('upload/upload_success', $data2);
-        }
-    }
+		$this->load->library('upload', $config);
 
-    function del($id = 0) {
-
-        $this->load->library('table');
-
-        $this->load->helper('html');
-
-        if ((int) $id > 0) {
-
-            $this->files_model->delete($id);
-        }
-
+		if ( ! $this->upload->do_upload())
+		{
+			$data['rows']=$this->files_model->getById();
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['rows'] = $this->files_model->getAll();
+        $data['error'] = '';
+        $data['view_data'] = '';
+        $data['content'] = 'upload/upload_form';
+        $this->load->view('layout/layout', $data);
+			
+		}
+		else
+		{
+			$data = $this->upload->data();
+			$this->files_model->insert_file($data['file_name'],$id_number=123,$data['file_type'],$data['file_path'],$data['full_path']);
+                      $data = array('upload_data' => $this->upload->data());
+                 $data['rows']=$this->files_model->getById();
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+        $data['rows'] = $this->files_model->getAll();
+        $data['error'] = '';
+        $data['view_data'] = '';
+        $data['content'] = 'upload/upload_success';
+        $this->load->view('layout/layout', $data);
+			
+                     
+                
+                     
+	}
+        function del($id=0){  
+                        $data['content'] ='' ;
 
-        $this->load->view('upload_form', $data);
-    }
+$data['view_data'] ='' ;
+   $this->load->library('table');  
 
+  $this->load->helper('html');    
+
+  
+
+    
+
+  if((int)$id > 0){  
+
+   $this->files_model->delete($id);  
+
+ }  
+
+    
+
+   
+
+   $data['rows'] = $this->files_model->getAll();  
+
+          
+
+   $this->load->view('find',$data);      
+
+} 
+
+        
+}   
 }
-
 ?>

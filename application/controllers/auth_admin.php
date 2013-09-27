@@ -66,76 +66,79 @@ class Auth_admin extends CI_Controller {
         }
     }
 
-    function manage_user_accounts() {
-        $this->load->model('demo_auth_admin_model');
+    function manage_user_accounts()
+    {
+		$this->load->model('demo_auth_admin_model');
 
-        if (!$this->flexi_auth->is_privileged('View Users')) {
-            $this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view user accounts.</p>');
-            redirect('auth_admin');
-        }
+		// Check user has privileges to view user accounts, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_privileged('View Users'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view user accounts.</p>');
+			redirect('auth_admin');
+		}
 
-        if ($this->input->post('search_users') && $this->input->post('search_query')) {
-            $search_query = str_replace(' ', '-', $this->input->post('search_query'));
+		// If 'Admin Search User' form has been submitted, this example will lookup the users email address and first and last name.
+		if ($this->input->post('search_users') && $this->input->post('search_query')) 
+		{
+			// Convert uri ' ' to '-' spacing to prevent '20%'.
+			// Note: Native php functions like urlencode() could be used, but by default, CodeIgniter disallows '+' characters.
+			$search_query = str_replace(' ','-',$this->input->post('search_query'));
+		
+			// Assign search to query string.
+			redirect('auth_admin/manage_user_accounts/search/'.$search_query.'/page/');
+		}
+		// If 'Manage User Accounts' form has been submitted and user has privileges to update user accounts, then update the account details.
+		else if ($this->input->post('update_users') && $this->flexi_auth->is_privileged('Update Users')) 
+		{
+			$this->demo_auth_admin_model->update_user_accounts();
+		}
 
-            redirect('auth_admin/manage_user_accounts/search/' . $search_query . '/page/');
-        } else if ($this->input->post('update_users') && $this->flexi_auth->is_privileged('Update Users')) {
-            $this->demo_auth_admin_model->update_user_accounts();
-        }
-
-        $this->demo_auth_admin_model->get_user_accounts();
-
-        $data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-        $data['view_data'] = ''; {
-            $data['message'] = $this->session->flashdata('message'); {
-                if ($this->input->post('update_account')) {
-                    $this->load->model('demo_auth_model');
-                    $this->demo_auth_model->update_account();
-                }
-
-                $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
-
-
-                $data['content'] = 'login/admin/user_acccounts_view';
-                $this->load->view('layout/layout', $data);
-            }
-        }
+		// Get user account data for all users. 
+		// If a search has been performed, then filter the returned users.
+		$this->demo_auth_admin_model->get_user_accounts();
+		
+		// Set any returned status/error messages.
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+$data['view_data'] = '';
+		$this->load->view('login/admin/user_acccounts_view', $this->data);		
     }
+	
+ 	/**
+ 	 * update_user_account
+ 	 * Update the account details of a specific user.
+ 	 */
+	function update_user_account($user_id)
+	{
+		// Check user has privileges to update user accounts, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_privileged('Update Users'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
+			redirect('auth_admin');		
+		}
 
-    function update_user_account($user_id) {
-        if (!$this->flexi_auth->is_privileged('Update Users')) {
-            $this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
-            redirect('auth_admin');
-        }
-
-        if ($this->input->post('update_users_account')) {
-            $this->load->model('demo_auth_admin_model');
-            $this->demo_auth_admin_model->update_user_account($user_id);
-        }
-
-        $sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
-        $data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
-
-        $data['groups'] = $this->flexi_auth->get_groups_array();
-
-        $data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-        $data['view_data'] = ''; {
-            $data['message'] = $this->session->flashdata('message'); {
-                if ($this->input->post('update_account')) {
-                    $this->load->model('demo_auth_model');
-                    $this->demo_auth_model->update_account();
-                }
-
-                $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
-
-
-                $data['content'] = 'login/admin/user_acccounts_view';
-                $this->load->view('layout/layout', $data);
-            }
-        }
-    }
+		// If 'Update User Account' form has been submitted, update the users account details.
+		if ($this->input->post('update_users_account')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->update_user_account($user_id);
+		}
+		
+		// Get users current data.
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
+	
+		// Get user groups.
+		$data['groups'] = $this->flexi_auth->get_groups_array();
+		
+		// Set any returned status/error messages.
+		$data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+$data['view_data'] = '';
+                $data['content']='login/admin/user_account_update_view';
+		$this->load->view('layout/layout', $data);
+	}
 
     function manage_user_groups() {
-        if (!$this->flexi_auth->is_privileged('View User Groups')) {
+        if ($this->flexi_auth->is_privileged('View User Groups')) {
             $this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view user groups.</p>');
             redirect('auth_admin');
         }
@@ -274,7 +277,7 @@ class Auth_admin extends CI_Controller {
             $this->demo_auth_admin_model->insert_privilege();
         }
 
-        $data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
         $data['view_data'] = ''; {
             $data['message'] = $this->session->flashdata('message'); {
                 if ($this->input->post('update_account')) {

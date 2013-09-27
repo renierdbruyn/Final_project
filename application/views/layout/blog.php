@@ -20,7 +20,7 @@
                         <b>close date: </b> <?php echo isset($date) ? $date : NULL; ?>
                         </br>
                         <b>salary:</b> <?php echo isset($salary) ? "R".$salary : NULL; ?>
-
+<a href="<?php echo base_url()."index.php/advert/review_advert/$id"; ?>" class='btn btn-primary btn-small'>More details</a>
                         <hr>
                     </div>
 

@@ -1,7 +1,20 @@
 <!doctype html>
+<div class="container">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!--Sidebar content-->
+                        <?php $this->load->view('login/admin/consultant_sidebar'); ?>
+                    </div>
 
+                    <div class="span10">
+                        <!--Body content-->
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">
 				<h2>Update Account of <?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?></h2>
-				<a href="<?php echo base_url();?>index.php/auth_admin/manage_user_accounts">Manage User Accounts</a>
+				<a href="<?php echo base_url();?>index.php/auth_admin/manage_user_accounts">Update User Accounts</a>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -11,9 +24,7 @@
 				
 				<?php echo form_open(current_url());?>  	
 					<fieldset>
-						<label>Personal Details</label>
 						
-							
 								<label for="first_name">First Name:</label>
 								<input type="text" id="first_name" name="update_first_name" value="<?php echo set_value('update_first_name',$user['upro_first_name']);?>"/>
 							<br>
@@ -25,22 +36,15 @@
 					</fieldset>
 					
 					<fieldset>
-						<label>Contact Details</label>
-					
-							
+						
 								<label for="phone_number">Phone Number:</label>
 								<input type="text" id="phone_number" name="update_phone_number" value="<?php echo set_value('update_phone_number',$user['upro_phone']);?>"/>
 							<br>
 							
-								<?php $newsletter = ($user['upro_newsletter'] == 1) ;?>
-								<label for="newsletter">Subscribe to Newsletter:</label>
-								<input type="checkbox" id="newsletter" name="update_newsletter" value="1" <?php echo set_checkbox('update_newsletter','1',$newsletter); ?>/>
-							<br>
-						
+								
 					</fieldset>
 					
 					<fieldset>
-						<label>Login Details</label>
 						
 							
 								<label for="email_address">Email Address:</label>
@@ -55,7 +59,7 @@
 								/>
 							<br>
 							
-								<label for="group">Group:</label>
+								<label for="group">Role:</label>
 								<select id="group" name="update_group" class="tooltip_trigger"
 									title="Set the users group, that can define them as an admin, public, moderator etc."
 								>
@@ -68,25 +72,29 @@
 								</select>
 							<br>
 						
-								<label>Privileges:</label>
+								
 								<a href="<?php echo base_url().'index.php/auth_admin/update_user_privileges/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger"
-									title="Manage a users access privileges.">Manage User Privileges</a>
+									title="Update a users access privileges.">Update User Privileges</a>
 							<br>
 					
 					</fieldset>
 					
 					<fieldset>
-						<label>Update Account</label>
-						
-						
-								<label for="submit">Update Account:</label>
-								<input type="submit" name="update_users_account" id="submit" value="Submit" class="link_button large"/>
+                                            <br>
+								<input type="submit" name="update_users_account" id="submit" value="Submit" class="btn btn-primary"/>
 							<br>
 						
 					</fieldset>
 				<?php echo form_close();?>
 			
+</div>
+    </div>
+</div>
 
+</div> <!--end container -->
+                </div>
+            </div>
+        </div>
 
 </body>
 </html>

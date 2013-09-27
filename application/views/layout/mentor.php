@@ -1,5 +1,13 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <!--Sidebar content-->
+      
 <?php $this->load->view('layout/blog'); ?>
-        <h1>How to be a great mentor</h1>Although mentoring an employee requires a fair deal of effort, the rewards are well worth it. Before taking the plunge read these tips to make sure you’re at the top of your mentor .
+    </div>
+    <div class="span10">
+      <!--Body content-->
+         <h1>How to be a great mentor</h1>Although mentoring an employee requires a fair deal of effort, the rewards are well worth it. Before taking the plunge read these tips to make sure you’re at the top of your mentor .
 <br><br><img src="<?php echo base_url(); ?>assets/img/99.jpg" class="img-rounded" height="100px" width="200px"/><br>
 
 <h1>Assign</h1>
@@ -11,3 +19,9 @@ Try to regularly provide your employee with feedback. Make notes as they do thei
 <h1>Set up goals</h1>
 In your regular catch up sessions, set up goals together. Discuss what a personal development plan and advise what is needed in order to reach the goals. This will help your employee focus on specific goals and gain a better understanding of what is needed.
 
+
+    </div>
+  </div>
+</div>
+
+     

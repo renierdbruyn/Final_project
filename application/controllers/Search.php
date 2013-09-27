@@ -1,12 +1,11 @@
 <?php
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+
 class Search extends CI_Controller {
 
     function __construct() {
         parent::__construct();
 
-        // To load the CI benchmark and memory usage profiler - set 1==1.
+
         if (1 == 2) {
             $sections = array(
                 'benchmarks' => TRUE, 'memory_usage' => TRUE,
@@ -17,28 +16,33 @@ class Search extends CI_Controller {
             $this->output->enable_profiler(TRUE);
         }
 
-        // Load required CI libraries and helpers.
+
         $this->load->database();
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->helper('form');
         $this->load->model('Blogmodel');
+        
+
         $this->load->model('search_model');
 
         $this->load->helper('html');
         $this->load->library("pagination");
 
-        // IMPORTANT! This global must be defined BEFORE the flexi auth library is loaded! 
-        // It is used as a global that is accessible via both models and both libraries, without it, flexi auth will not work.
+
         $this->auth = new stdClass;
 
         $this->load->library('flexi_auth');
 
-
         if ($this->flexi_auth->is_logged_in_via_password() && uri_string() != 'auth/logout') {
             if ($this->session->flashdata('message')) {
                 $this->session->keep_flashdata('message');
+            }
+
+            if ($this->flexi_auth->is_admin()) {
+                redirect('auth_admin/dashboard');
+            } else {
+                redirect('auth_public/dashboard');
             }
         }
 
@@ -46,12 +50,16 @@ class Search extends CI_Controller {
 
         $this->data = null;
     }
-
+ 
     public function index() {
-        $this->load->view('search_form');
-    }
+        $data['view_data'] = '';
+          $data['view_data'] = 'search_form';
+        $this->load->view('layout/layout',$data);
 
-    public function execute_search() {
+     
+    }
+    
+    public function execute_normal_search() {
 
 
         $this->load->library('form_validation');
@@ -71,18 +79,47 @@ class Search extends CI_Controller {
             $search_term = $this->input->post('search');
 
             $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
-            $data['results'] = $this->search_model->get_results($search_term);
+            $data['results'] = $this->search_model->get_normal_results($search_term);
 
 
 
             //$this->load->view('search_results', $data);
             $data['view_data'] = '';
-            $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+            //$data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
             $data["content"] = "search/search_results";
             $this->load->view('layout/layout', $data);
         }
     }
 
+    public function execute_search() {
+
+$data['view_data'] = '';
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('search', 'search job', 'required');
+        if ($this->form_validation->run() == FALSE) {
+           // $data['info'] = "<script>alert('search feild cannot be empty');</script>";
+               $data['content']='search_form';
+            $this->load->view('layout/layout',$data);
+        } else {
+
+            $search_term = $this->input->post('search');
+            $search_term2= $this->input->post('company_location');
+       $search_term3= $this->input->post('contract_type');
+       $search_term4=$this->input->post('employment_equity');
+//             
+            $data['results'] = $this->search_model->get_results($search_term,$search_term2,$search_term3,$search_term4);
+
+IF ($data['results']==NULL){
+    $data['content']='search_form';
+            $this->load->view('layout/layout',$data);
+//    echo'No results,please search again!!';
+}
+ELSE
+            //$this->load->view('search_results', $data);
+    
+        $data['content']="search/search_results";
+            $this->load->view('layout/layout',$data);     }
+    }
 }
 
 ?>

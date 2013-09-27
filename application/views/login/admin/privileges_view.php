@@ -1,6 +1,20 @@
 <!doctype html>
-			<h2>Manage Privileges</h2>
-				<a href="<?php echo base_url();?>index.php/auth_admin/insert_privilege">Insert New Privilege</a>
+<div class="container">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!--Sidebar content-->
+                        <?php $this->load->view('login/admin/consultant_sidebar'); ?>
+                    </div>
+
+                    <div class="span10">
+                        <!--Body content-->
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">
+			<h2>Update Privileges</h2>
+				<a href="<?php echo base_url();?>index.php/auth_admin/insert_privilege">Add New Privilege</a>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -9,7 +23,7 @@
 			<?php } ?>
 				
 				<?php echo form_open(current_url());	?>  	
-					<table class="table">
+					<table class="table table-bordered table-condensed table-striped">
 						<thead>
 							<tr>
 								<th class="spacer_200 tooltip_trigger" 
@@ -48,16 +62,23 @@
 						<?php } ?>
 						</tbody>
 						<tfoot>
-							<td colspan="3">
+							<td colspan="2">
 								<?php $disable = (! $this->flexi_auth->is_privileged('Update Privileges') && ! $this->flexi_auth->is_privileged('Delete Privileges')) ? 'disabled="disabled"' : NULL;?>
-								<input type="submit" name="submit" value="Delete Checked Privileges" class="link_button large" <?php echo $disable; ?>/>
+								<input type="submit" name="submit" value="Delete Checked Privileges" class="btn btn-primary"<?php echo $disable; ?>/>
 							</td>
 						</tfoot>
 					</table>
 					
 				<?php echo form_close();?>
 		<br>
+</div>
+    </div>
+</div>
 
+</div> <!--end container -->
+                </div>
+            </div>
+        </div>
    
 </body>
 </html>

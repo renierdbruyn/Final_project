@@ -12,7 +12,7 @@ echo form_fieldset('Add Personal Information');
 echo form_hidden('id_number', $this->session->userdata('id_number'));
 
 echo form_label('School Name');
-echo form_input('school_name' );
+echo form_input('school_name');
 
 echo form_label('Syllabus');
 $optSyllabus= array(

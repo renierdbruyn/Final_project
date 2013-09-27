@@ -1,5 +1,5 @@
 <!doctype html>
-
+<center>
 
 				<h3>Resend Activation Token</h3>
 <br>
@@ -37,5 +37,6 @@
 <br>
 <br>
 <br>
+</center>
 </body>
 </html>

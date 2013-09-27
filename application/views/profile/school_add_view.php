@@ -29,7 +29,7 @@
                     <div  class="modal hide" id="add_subject" aria-hidden="true">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal">X</a>
-                            <h3>This is a Modal Heading</h3>
+                            <h3>Add School Subjects</h3>
                         </div>
                         <div class="modal-body">
 <?php

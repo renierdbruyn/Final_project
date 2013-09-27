@@ -4,51 +4,11 @@
     <div class="row-fluid">
         <div class="span2">
             <!--Sidebar content-->
-            <?php
-            echo form_open('Asearch/execute_search');
-
-            echo form_input(array('name' => 'search'), "search", "style='width:100%'");
-            ?>
-
-            <p>
-                <label for="company_location">Location</label>
-<?php
-$company_location = array('' => '',
-    'kzn' => 'Kwa-zulu Natal',
-    'gauteng' => 'Gauteng',
-    'eastern cape' => 'Eastern Cape',
-    'western cape' => 'Western Cape',
-    'northern cape' => 'Northern Cape',
-    'free state' => 'Free State',
-    'limpopo' => 'Limpopo');
-
-echo form_dropdown('company_location', $company_location, '', "style='width:100%'");
-?>
-            </p>
-            <p>
-                <label for="gender">Gender</label>
-<?php
-$gender = array('any' => 'Any',
-    'male' => 'Male',
-    'female' => 'Female');
-echo form_dropdown('gender', $gender, 'any', "style='width:100%'");
-?>
-            </p>
-            <p>
-                <label for="employment_equity">Employment Equity</label>
-<?php
-$employment_equity = array('any' => 'Any',
-    'caucasion' => 'Caucasion',
-    'black' => 'Black',
-    'asian' => 'Asian',
-    'mixed race' => 'Mixed Race');
-echo form_dropdown('employment_equity', $employment_equity, 'any', "style='width:100%'");
-echo form_submit('search_submit', 'SEARCH JOB', "class='btn btn-primary' ");
-?>
+           <?php $this->load->view('layout/advanced_search'); ?>
                 <br>
             <hr>
                 <br>
-            </p>
+            
 <?php $this->load->view('layout/blog'); ?>
 
         </div>

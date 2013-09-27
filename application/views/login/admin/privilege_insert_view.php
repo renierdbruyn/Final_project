@@ -1,7 +1,20 @@
 <!doctype html>
+<div class="container">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!--Sidebar content-->
+                        <?php $this->load->view('login/admin/consultant_sidebar'); ?>
+                    </div>
 
-				<h2>Insert New Privilege</h2>
-				<a href="<?php echo base_url();?>index.php/auth_admin/manage_privileges">Manage Privileges</a>
+                    <div class="span10">
+                        <!--Body content-->
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">
+				<h2>Add New Privilege</h2>
+				<a href="<?php echo base_url();?>index.php/auth_admin/manage_privileges">update Privileges</a>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -27,11 +40,9 @@
 					</fieldset>
 
 					<fieldset>
-						<label>Insert New Privilege</label>
 						
-							
-								<label for="submit">Insert Privilege:</label>
-								<input type="submit" name="insert_privilege" id="submit" value="Submit" class="link_button large"/>
+								<label for="submit">Add Privilege:</label>
+								<input type="submit" name="insert_privilege" id="submit" value="Submit" class="btn btn-primary"/>
 							<br>
 						
 					</fieldset>
@@ -43,7 +54,14 @@
 <br>
 <br>
 
+</div>
+    </div>
+</div>
 
+</div> <!--end container -->
+                </div>
+            </div>
+        </div>
     
 </body>
 </html>

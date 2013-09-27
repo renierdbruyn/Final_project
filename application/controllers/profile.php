@@ -42,8 +42,9 @@ class Profile extends CI_Controller {
         $data['header']['title'] = 'Your Profile';
         $data['footer']['scripts']['homescript.js'] = 'home';
         $data['content'] = 'profile/personal_add_view';
-        $data['view_data'] = $this->Profile_model->get_personal_data($this->session->userdata('id_number'));
         $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+        $data['view_data'] = $this->Profile_model->get_personal_data($this->session->userdata('id_number'));
+
         $this->load->view('layout/layout', $data);
     }
 
@@ -51,11 +52,11 @@ class Profile extends CI_Controller {
     public function job_history() {
         $data['header']['title'] = 'Your Employment History';
         $data['footer']['scripts']['homescript.js'] = 'home';
-
+$data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $query = $this->Profile_model->get_job_data($this->session->userdata('id_number'));
         $data['view_data']['job_data'] = $query;
         $data['view_data']['industry_types'] = $this->Profile_model->get_industry_types();
-        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+
         if ($query == NULL) {
             $data['content'] = 'profile/job_add_view';
         } else {
@@ -71,7 +72,7 @@ class Profile extends CI_Controller {
         $data['footer']['scripts']['homescript.js'] = 'home';
         $data['view_name'] = 'job_edit_view';
         $data['view_data']['job'] = $this->Profile_model->get_job_data();
-$data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+
         $this->load->view('page_view', $data);
     }
 
@@ -159,8 +160,8 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['header']['title'] = 'Your Profile';
         $data['footer']['scripts']['homescript.js'] = 'home';
         $data['content'] = 'profile/school_add_view';
-        $data['view_data']['school_subjects'] = $this->Profile_model->get_school_subjects_data($this->session->userdata('id_number')); 
         $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+        $data['view_data']['school_subjects'] = $this->Profile_model->get_school_subjects_data($this->session->userdata('id_number'));
         $data['view_data']['school_data'] = $this->Profile_model->get_school_data($this->session->userdata('id_number'));
         $query = $this->Profile_model->get_syllabus($this->session->userdata('id_number'));
         if(!$query==false)
@@ -204,22 +205,9 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
             $data['institution'] = $this->input->post('institution');
             $data['type'] = $this->input->post('type');
             $data['course'] = $this->input->post('course');
+            
 
             $this->Profile_model->save_tertiary_data($data);
-            redirect('profile/tertiary');
-        } else {
-            redirect('profile/tertiary'); // back to the add form
-        }
-    }
-    
-     //Save tertiary subject and marks for a logged in user
-    public function save_tertiary_subject() {
-        if (isset($_POST) && $_POST['save'] == 'Save') {
-            $data['id_number'] = $this->input->post('id_number');
-            $data['subject'] = $this->input->post('subject');
-            $data['marks'] = $this->input->post('marks');
-
-            $this->Profile_model->save_tertiary_subject($data);
             redirect('profile/tertiary');
         } else {
             redirect('profile/tertiary'); // back to the add form
@@ -373,10 +361,13 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         if ($id == null) {
             show_error('No identifier provided', 500);
         } else {
+            
             $data['header']['title'] = 'Edit School Subject';
             $data['footer']['scripts']['homescript.js'] = 'home';
+            $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
             $data['content'] = 'profile/subject_edit_view';
-            $data['view_data']['old_data'] = $this->profile_model->get_school_subject($id);
+            
+            $data['view_data']['old_data'] = $this->Profile_model->get_school_subject($id);
             $query = $this->Profile_model->get_syllabus($this->session->userdata('id_number'));
             if ($query['syllabus'] == 'NSC') {
                 $data['view_data']['subjects'] = $this->Profile_model->get_nsc_subjects();
@@ -389,7 +380,6 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
             if ($query['syllabus'] == 'IEB') {
                 $data['view_data']['subjects'] = $this->Profile_model->get_ieb_subjects();
             }
-            $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
             $data['view_data']['syllabus'] = $query;
             $this->load->view('layout/layout', $data);
         }
@@ -401,17 +391,19 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
 
         $data['header']['title'] = 'Edit School Information';
         $data['footer']['scripts']['homescript.js'] = 'home';
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['content'] = 'profile/modify_school';
         $data['view_data']['school_data'] = $this->Profile_model->get_school_data($this->session->userdata('id_number'));
-$data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+
         $this->load->view('layout/layout', $data);
     }
 
     public function modify_tertiary()
     {
-$data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+
         $data['header']['title'] = 'Edit Tertiary Information';
         $data['footer']['scripts']['homescript.js'] = 'home';
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['content'] = 'profile/qualification_edit_view';
         $data['view_data']['qualification'] = $this->Profile_model->get_tertiary_qualification($this->session->userdata('id_number'));
 
@@ -426,9 +418,9 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         } else {
             $data['header']['title'] = 'Edit Tertiary Subject';
             $data['footer']['scripts']['homescript.js'] = 'home';
-            $data['content'] = 'profile/tertiary_subject_edit_view';
-            $data['view_data']['tertiary_subject_data'] = $this->profile_model->get_tertiary_subject($id);
             $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+            $data['content'] = 'profile/tertiary_subject_edit_view';
+            $data['view_data']['tertiary_subject_data'] = $this->Profile_model->get_tertiary_subject($id);
             $this->load->view('layout/layout', $data);
         }
     }
@@ -440,8 +432,8 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         } else {
             $data['header']['title'] = 'Edit Personal Data';
             $data['content'] = 'profile/personal_edit_view';
-            $data['view_data']['personal_data'] = $this->Profile_model->get_personal_data($id_number);
             $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+            $data['view_data']['personal_data'] = $this->Profile_model->get_personal_data($id_number);
             $this->load->view('layout/layout', $data);
         }
     }
@@ -452,10 +444,10 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
             show_error('No identifier provided', 500);
         } else {
             $data['header']['title'] = 'Edit Job History';
+            $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
             $data['content'] = 'profile/job_edit_view';
             $data['view_data']['industry_types'] = $this->Profile_model->get_industry_types();
             $data['view_data']['job_data'] = $this->Profile_model->get_job_data($id_number);
-            $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
             $this->load->view('layout/layout', $data);
         }
     }
@@ -543,21 +535,32 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
 
     //Loading Tertiary form
     public function tertiary() {
-        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
+
         $data['header']['title'] = 'Tertiary Information';
         $data['footer']['scripts']['homescript.js'] = 'home';
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['content'] = 'profile/tertiary_add_view';
         $data['view_data']['tertiary_subjects'] = $this->Profile_model->get_tertiary_subjects_data($this->session->userdata('id_number'));
         $data['view_data']['qualification'] = $this->Profile_model->get_tertiary_qualification($this->session->userdata('id_number'));
         $this->load->view('layout/layout', $data);
     }
+public function save_tertiary_subject() {
+        if (isset($_POST) && $_POST['save'] == 'Save') {
+            $data['id_number'] = $this->input->post('id_number');
+            $data['subject'] = $this->input->post('subject');
+            $data['marks'] = $this->input->post('marks');
 
+            $this->Profile_model->save_tertiary_subject($data);
+            redirect('profile/tertiary');
+        } else {
+            redirect('profile/tertiary'); // back to the add form
+        }
+    }
     public function browse_jobs() {
 
         $data['header']['title'] = 'Browse Jobs';
         $data['content'] = 'advert/browse_jobs';
         $data['view_data']['job_adverts'] = $this->Profile_model->get_all_adverts();
-        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $this->load->view('layout/layout', $data);
     }
 
@@ -566,7 +569,6 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['header']['title'] = 'Full Advert Description';
         $data['content'] = 'advert/advert_display';
         $data['view_data']['job_adverts'] = $this->Profile_model->get_advert($advert_id);
-        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $this->load->view('layout/layout', $data);
     }
 
@@ -574,6 +576,7 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
     public function skills() {
         $data['header']['title'] = 'Skills Information';
         $data['footer']['scripts']['homescript.js'] = 'home';
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['content'] = 'profile/skills_add_view';
         $data['view_data']['people_skills'] = $this->Profile_model->get_people_skills($this->session->userdata('id_number'));
         $data['view_data']['data_skills'] = $this->Profile_model->get_data_skills($this->session->userdata('id_number'));
@@ -582,7 +585,6 @@ $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['view_data']['artistic_skills'] = $this->Profile_model->get_artistic_skills($this->session->userdata('id_number'));
         $data['view_data']['other_skills'] = $this->Profile_model->get_other_skills($this->session->userdata('id_number'));
         $data['view_data']['leadership_skills'] = $this->Profile_model->get_leadership_skills($this->session->userdata('id_number'));
-        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
 
         $this->load->view('layout/layout', $data);
     }

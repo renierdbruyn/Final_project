@@ -1,5 +1,18 @@
 <!doctype html>
+<div class="container">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <!--Sidebar content-->
+                        <?php $this->load->view('login/admin/consultant_sidebar'); ?>
+                    </div>
 
+                    <div class="span10">
+                        <!--Body content-->
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">
                 <div class="hide_toggle">
 	                <ul class="bullet">
 	                <?php
@@ -12,13 +25,13 @@
 	                        echo '<li><span class="highlight_orange">User privileges are NOT considered.</span></li>';
 	                    }
 	                    
-	                    if (in_array('group', $privilege_sources))
+	                    if (in_array('Role', $privilege_sources))
 	                    {
-	                        echo '<li><span class="highlight_green">Group privileges are considered.</span></li>';
+	                        echo '<li><span class="highlight_green">Role privileges are considered.</span></li>';
 	                    }
 	                    else
 	                    {
-	                        echo '<li><span class="highlight_orange">User Group privileges are NOT considered.</span></li>';
+	                        echo '<li><span class="highlight_orange">User Role privileges are NOT considered.</span></li>';
 	                    }
 	                ?>
 	                </ul>
@@ -29,9 +42,9 @@
 	<div class="content_wrap main_content_bg">
 		<div class="content clearfix">
 			<div class="col100">
-				<h2>Update User Privileges of '<?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?>', Member of Group '<?php echo $user['ugrp_name']; ?>'</h2>
-				<a href="<?php echo base_url();?>auth_admin/manage_user_accounts">Manage User Accounts</a> | 
-				<a href="<?php echo base_url();?>auth_admin/update_user_account/<?php echo $user['upro_uacc_fk']; ?>">Update Users Account</a>
+				<h2>Update User Privileges of '<?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?>', Member of Role '<?php echo $user['ugrp_name']; ?>'</h2>
+				<a href="<?php echo base_url();?>index.php/auth_admin/manage_user_accounts">Update User Accounts</a> | 
+				<a href="<?php echo base_url();?>index.php/auth_admin/update_user_account/<?php echo $user['upro_uacc_fk']; ?>">Update Users Account</a>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -40,7 +53,7 @@
 			<?php } ?>
 			
 				<?php echo form_open(current_url());	?>  	
-					<table class="table">
+					<table class="table table-bordered table-condensed table-striped">
  
 						<thead>
 							<tr>
@@ -53,12 +66,12 @@
 									Description
 								</th>
 								<th class="spacer_150 align_ctr tooltip_trigger"
-									title="If checked, the user will be granted the privilege, regardless of whether their user group has the privilege."/>
+									title="If checked, the user will be granted the privilege, regardless of whether their user role has the privilege."/>
 									User Has Individual Privilege
 								</th>
 								<th class="spacer_150 align_ctr tooltip_trigger"
-									title="Indicates whether the privilege has been assigned to the user via the privileges defined for their user group."/>
-									Has Privilege From User Group
+									title="Indicates whether the privilege has been assigned to the user via the privileges defined for their user role."/>
+									Has Privilege From User Role
 								</th>
 							</tr>
 						</thead>
@@ -89,7 +102,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="4">
-									<input type="submit" name="update_user_privilege" value="Update User Privileges" class="link_button large"/>
+									<input type="submit" name="update_user_privilege" value="Update User Privileges" class="btn btn-primary"/>
 								</td>
 							</tr>
 						</tfoot>
@@ -104,6 +117,13 @@
 	</div>	
 	
 	
+</div>
+    </div>
+</div>
 
+</div> <!--end container -->
+                </div>
+            </div>
+        </div>
 </body>
 </html>

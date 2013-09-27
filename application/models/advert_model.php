@@ -17,7 +17,10 @@ class Advert_model extends CI_Model {
     }
 
     function apply($data) {
-        $ql = $this->db->select('id_number, advert_id')->from('applications')->where('id_number', $data['id_number'])->get();
+        $ql = $this->db->select('id_number, advert_id')
+                       ->from('applications')
+                       ->where('id_number', $data['id_number'])
+                       ->where('advert_id',$data['advert_id'])->get();
         if ($ql->num_rows() >0 ) {
             return FALSE;
         } else {

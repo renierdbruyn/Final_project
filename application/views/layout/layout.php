@@ -33,7 +33,7 @@
                 -webkit-border-radius: 6px;
                 -moz-border-radius: 6px;
                 border-radius: 6px;
-                background-image: linear-gradient(to bottom,transparent,transparent);
+                /*                background-image: linear-gradient(to bottom,transparent,transparent);*/
 
                 -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
                 -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -43,12 +43,12 @@
                 min-height: 50px;
                 padding-right: 20px;
                 padding-left: 20px;
-                background-color: transparent;
+                background-color:#2c3s15;
                 background-image: -moz-linear-gradient(top, #2c3e50, #2c3e50);
                 background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2c3e50), to(#2c3e50));
                 background-image: -webkit-linear-gradient(top, #2c3e50, #2c3e50);
                 background-image: -o-linear-gradient(top, #2c3e50, #2c3e50);
-                background-image: linear-gradient(to bottom,lightseagreen, lightseagreen);
+                background-image: linear-gradient(to bottom,#2c3s15, #2c3s15);
                 background-repeat: repeat-x;
                 border: 1px solid transparent;
                 -webkit-border-radius: 6px;
@@ -74,65 +74,55 @@
         </script>
     </head>
     <body>
-        
+
         <!--nav bar start -->
-        
-        <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
- 
-      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
- 
-      <!-- Be sure to leave the brand out there if you want it shown -->
-      <a class="brand" href="#"><img src="<?php echo base_url(); ?>assets/img/999.jpg" class="img-rounded" height="100px" width="450px"/></a>
- 
-      <!-- Everything you want hidden at 940px or less, place within here -->
-      <div class="nav-collapse collapse">
-        <!-- .nav, .navbar-search, .navbar-form, etc -->
-<!--        <form class="navbar-search pull-left" action="search/execute_search">
-                      <input type="text" class="search-query span2" placeholder="Search">
-                      <input type="submit" name="search_submit" value="Job Search" class="btn btn-small btn-primary" >
-                    </form>-->
-        <?php
-                echo form_open('search/execute_search',"navbar-search pull-left'");
-                echo form_input(array('name' => 'search'));
-                echo form_submit('search_submit', 'Job Search', 'class="btn btn-small btn-primary"');
-                echo form_close();
-                ?>   
-        <ul class="nav">   
-                    <form class="pull-left">
-                        </form>
-                    <li class=""><a href="<?php echo base_url(); ?>index.php/site/home"><i></i>Home</a>
-                    <li class=""><a href="<?php echo base_url(); ?>index.php/site/services"><i></i>Services</a>
-                    <li class=""><a href="<?php echo base_url(); ?>index.php/site/about"><i ></i>About Us</a>
-                    <li class=""><a href="<?php echo base_url(); ?>index.php/site/contact"><i></i>Contact Us</a>
-                    <li class=""><a href="<?php echo base_url(); ?>index.php/site/advice"><i></i>Career Advice</a>
-                </ul>
 
-                
-        
-        <form class="pull-right">  
-                    <?php if (!$this->flexi_auth->is_logged_in_via_password()) { ?><a class="btn btn-primary" href="<?php echo base_url(); ?>index.php/auth"><?php echo ($this->flexi_auth->is_logged_in()) ? 'Login via Password' : 'Login'; ?></a>
+        <div class="navbar navbar-inner navbar-form">
+            <div class="container">
 
-                    <?php } ?>
-                    <?php if (!$this->flexi_auth->is_logged_in()) { ?> <a class="btn btn-primary" href="<?php echo base_url(); ?>index.php/auth/register_account">Register</a>
+                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <!-- Be sure to leave the brand out there if you want it shown -->
+                <div class="nav-collapse collapse">                      
+                    <ul class="nav">   
+                        <form class="pull-left">
+                            <img src="<?php echo base_url(); ?>assets/img/999.jpg" class="img-rounded" height="100px" width="450px"/></form>
+                        <li class=""><a href="<?php echo base_url(); ?>index.php/site/home"><i></i>Home</a>
+                        <li class=""><a href="<?php echo base_url(); ?>index.php/site/services"><i></i>Services</a>
+                        <li class=""><a href="<?php echo base_url(); ?>index.php/site/about"><i ></i>About Us</a>
+                        <li class=""><a href="<?php echo base_url(); ?>index.php/site/contact"><i></i>Contact Us</a>
+                        <li class=""><a href="<?php echo base_url(); ?>index.php/site/advice"><i></i>Career Advice</a>
+                    </ul>
+
+                    <?php
+                    echo form_open('search/execute_normal_search');
+
+                    echo form_input(array('name' => 'search'));
+
+                    echo form_submit('search_submit', 'Search', 'class="btn btn-primary "');
+
+                    echo form_close();
+                    ?>                     
+                    <form class="pull-right">  
+                        <?php if (!$this->flexi_auth->is_logged_in_via_password()) { ?><a class="btn btn-primary" href="<?php echo base_url(); ?>index.php/auth"><?php echo ($this->flexi_auth->is_logged_in()) ? 'Login via Password' : 'Login'; ?></a>
+
+                        <?php } ?>
+                        <?php if (!$this->flexi_auth->is_logged_in()) { ?> <a class="btn btn-primary" href="<?php echo base_url(); ?>index.php/auth/register_account">Register</a>
 
 
-                    <?php } else { ?><a class="btn btn-primary " href="<?php echo base_url(); ?>index.php/auth/logout">Logout</a>
-                    <?php } ?>
+                        <?php } else { ?><a class="btn btn-primary " href="<?php echo base_url(); ?>index.php/auth/logout">Logout</a>
+                        <?php } ?>
 
-                </form> 
-      </div>
- 
-    </div>
-  </div>
-</div>
-         <!--nav bar end -->
+                    </form> 
+                </div>
+            </div>
+        </div>
+        <!--nav bar end -->
         <?php if ($this->flexi_auth->is_admin()) { ?>
             <div class="navbar navbar-inner navbar-form">              
                 <div class="navbar navbar-fixed">
@@ -204,13 +194,13 @@
                                 <div class="container-fluid">
                                     <div class="row-fluid">
                                         <!--<div class="span2"></div>-->
-                                       
+
                                         <div class="span12">
                                             <!--Body content-->
                                             <?php $this->load->view($content, $view_data); ?>
                                             <?php echo isset($info) ? $info : null; ?>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <!--                                                <div class='container'>

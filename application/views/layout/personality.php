@@ -1,6 +1,13 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <!--Sidebar content-->
+      
 <?php $this->load->view('layout/blog'); ?>
-
-        <h1>Don't take it personally</h1>Criticism can often bring out the worst in people. It’s important for you to realize that being criticized is not a personal attack; it’s a key to success. Yes, success. When you’re criticized for a task, your employer is simply being honest with you. Use their criticism as a learning tool. Their knowledge could help make your work exceptional if you accept and consider their criticism. Here’s how to handle criticism like a pro.
+    </div>
+    <div class="span10">
+      <!--Body content-->
+          <h1>Don't take it personally</h1>Criticism can often bring out the worst in people. It’s important for you to realize that being criticized is not a personal attack; it’s a key to success. Yes, success. When you’re criticized for a task, your employer is simply being honest with you. Use their criticism as a learning tool. Their knowledge could help make your work exceptional if you accept and consider their criticism. Here’s how to handle criticism like a pro.
 
 <br><br><img src="<?php echo base_url(); ?>assets/img/96.jpg" class="img-rounded" height="100px" width="200px"/><br>
 
@@ -16,3 +23,8 @@ Sometimes criticism is far from helpful, but it’s up to you to be the bigger p
 <h1>Job not all you thought it would be? </h1>
 Make a change with You choose recruit.There are thousands of top jobs on offer right now. Sign up to make sure you don’t miss out on the job of your dreams.
     
+    </div>
+  </div>
+</div>
+
+       

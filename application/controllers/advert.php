@@ -60,6 +60,7 @@ class Advert extends CI_Controller {
     public function review_advert($advert_id) {
         $data['header']['title'] = 'Full Advert Description';
         $data['content'] = 'advert/advert_review';
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['view_data']['advert_fields'] = $this->Advert_model->get_advert($advert_id);
         $this->load->view('layout/layout', $data);
     }
@@ -70,6 +71,7 @@ class Advert extends CI_Controller {
         $data['id_number'] = $this->session->userdata('id_number');
         $data['advert_id'] = $advert_id;
         $data['status'] = 'pending';
+        //$data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         foreach ($sq->result() as $consultant) {
             if (!$consultant->consultant_name == "") {
                 $data['consultant'] = $consultant->consultant_name;
@@ -101,6 +103,7 @@ class Advert extends CI_Controller {
     public function advert_stats() {
         $data['header']['title'] = 'Advert Statistics';
         $data['content'] = 'advert/statistics';
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['view_data']['advert_stats'] = $this->Advert_model->get_applications_stats();
         $this->load->view('layout/layout', $data);
     }
@@ -108,6 +111,7 @@ class Advert extends CI_Controller {
     public function view_applicants() {
         $data['header']['title'] = 'Advert Statistics';
         $data['content'] = 'advert/advert_applicaions';
+        $data['user'] = $this->flexi_auth->get_user_by_identity_row_array();
         $data['view_data']['application_s'] = $this->Advert_model->get_applications_stats();
         $this->load->view('layout/layout', $data);
     }
