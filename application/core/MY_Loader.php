@@ -55,7 +55,23 @@ class MY_Loader extends CI_Loader
 
         parent::__construct();
     }
+    
+    /**
+     * Fuctio to check if site accessed by a mobile device or a pc
+     * @return LOADER
+     */
+ function view($view, $vars = array(), $return = FALSE)
+    {
+        $CI =& get_instance();
 
+        $CI->load->library("user_agent");
+
+        if($CI->agent->is_mobile()){
+            $view = 'mobile/'.$view;
+        }
+
+        return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+    }
     /**
      * To accomodate CI 2.1.0, we override the initialize() method instead of
      *  the ci_autoloader() method. Once sparks is integrated into CI, we
